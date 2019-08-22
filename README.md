@@ -1,52 +1,54 @@
-# Windows Subsystem for Linux Setup
-### Notice:
+# Install PostgreSQL using WSL
 
-WSL 2 is out! I have not had a chance to look at it yet, but I expect that this guide will need another round of updates to account for these changes!
-https://devblogs.microsoft.com/commandline/announcing-wsl-2/?fbclid=IwAR3Rq__91IDpIwXbGhMixWECnnatarW29a9_XtxpcEivjBcs6VvdPxK5it0
+This doc explains how to install PostgreSQL 10 for Windows WSL
 
- The section that talks about permissions is incorrect. Please look at the issues tab for more information.
- ___
+We are installing this through the Ubuntu command line since we want this software to run in the Linux environment. You can check out the PostgreSQL Linux install docs [here](https://www.postgresql.org/download/linux/ubuntu/).
 
-An in-depth guide for developers on how to get started with the Windows Subsystem for Linux.
+## Install
+1. Open a terminal (the Ubuntu app) and then go to the root of the Ubuntu Subsystem by typing `cd ~ `.
+2. Type `sudo nano ../../etc/apt/sources.list`. This will open a file on Ubuntu using the Nano editor.
+3. At the bottom of this file, paste in this line `deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main`
+  - Change the last part of the line above from `xenial-` to whichever version of Ubuntu you are running. For example, `bionic-` for Ubuntu 18.04.X.
+4. When that's done, press `Ctrl + X` together to close the file, and press `y` when prompted to save your changes, and `enter` to finally close.
+5. Next, copy these 2 lines and paste them into your terminal:
+```
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+sudo apt-get update
+```
+This will add postgresql-10 to your repositories so you can install the latest version of PostgreSQL. Press `enter` when the last line pops up.
 
-![Microsoft and Linux](https://i.imgur.com/GOij8My.png)
+6. After the update is complete, enter in this line `sudo apt-get install postgresql-10` and press `y` when prompted. If the process aborts automatically, you may have to restart your terminal.
 
-The Windows Subsystem for Linux feature on Windows 10 enables users to have a Linux enviroment fully integrated into their Windows PC.
+## Postgres User Setup
 
-For ~~experienced~~ all developers: This is not a VM, a Dual-boot, or a console wrapper like Git Bash or Cygwin. It is a native POSIX environment directly mounted to your Windows File System.
+postgresql-10 runs under the user `postgres`. We need to give this user a password so that postgres can allow this user to connect to the database.
 
-### Video Guide: 
+1. To set the password for postgres, type `sudo passwd postgres`.
+2. You will get a prompt to enter in your password. It will not show when you are typing, but it is still registering your key-strokes.
+3. Close and reopen the terminal.
 
-This guide also has a video walkthrough of it on YouTube where it goes into great detail on each section to help provide you with as much context as possible.
+## Using psql
 
-It's recommended you watch the videos while you go through this guide as they will help clairify many of these points with visuals.
+After your first install, and each time you restart your machine you will have to also restart the postgres service, or else you will get a `Is the server running?` error. 
 
-Link to the [WSL Video Playlist](https://www.youtube.com/channel/UCh0yhZV7OrQ-vojQBqSF0RA/).
+1. To start the service, type `sudo service postgresql start`.
+2. To conntect to postgres, type `sudo -u postgres psql`. 
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=ixqKqHfCDWM" target="_blank"><img src="http://img.youtube.com/vi/ixqKqHfCDWM/0.jpg" alt="Windows Subsystem for Linux Part One: Introduction into WSL"/></a>
+You should get a prompt asking for your password. If this doesn't work, then you can try the second option listed below.
 
----
+1. Switch users to postgres by typing `su - postgres`.
+2. Type `psql`.
 
+When this is successful you will see the command line change to look like this `postgres=#`
 
-### What this guide covers
+## Tips
 
-By the end of this guide, you will know:
+Since typing out `sudo service postgres start` and `sudo -u postgrest psql` all the time can be tedious, I would recommend you set up a couple aliases for this. 
 
-1. What WSL is, and why it's important.
-1. How to install WSL and the free Ubuntu App.
-1. How the two file systems work together, and how you should work with them.
-1. How to update your terminal, and edit WSL files.
-1. Where, why, and how to install different programs and software.
-1. Additional important information.
+1. Open a terminal and type `cd ~`, then type `sudo nano .profile`. This will open your `.profile` which controls what your terminal does and looks like.
+2. Add these two lines next to any other aliases that you have:
+  - `alias pgstart='sudo service postgresql start'`
+  - `alias runpg='sudo -u postgres psql'`
+This will allow you to type `pgstart` to start running the psql service, and `runpg` to quickly log into the psql prompt. This is an example of a Quality of Life enhancement, something that makes your life easier and faster as a developer. 
 
----
-
-### Checklist:
-
-Use [This Checklist](https://michaeltreat.github.io/Windows-Subsystem-For-Linux-Setup-Guide/) to help keep track of your progress! It makes use of Local Storage to maintain your progress even if you close the Window. Note:  `CTRL + CLICK` to open in a new window!
-
-There is also a challenge at the bottom designed to help you learn more about the work-flow as well.
-
-#### Ready to begin? 
-
-Go to Page 1: [Introduction into WSL](./readmes/01_preface.md) 
+You can change `pgstart` and `runpg` to what ever you want, but just be careful you don't overwrite something that postgres might use. 
