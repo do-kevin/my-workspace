@@ -1,52 +1,105 @@
-# Windows Subsystem for Linux Setup
-### Notice:
+## I would like to thank [Michael Treat](https://github.com/michaeltreat), [Christian Welly](https://github.com/chrisjwelly), and [Izzy Baer](https://github.com/izzybaer) for providing the markdown and instructions that I am modifying
 
-WSL 2 is out! I have not had a chance to look at it yet, but I expect that this guide will need another round of updates to account for these changes!
-https://devblogs.microsoft.com/commandline/announcing-wsl-2/?fbclid=IwAR3Rq__91IDpIwXbGhMixWECnnatarW29a9_XtxpcEivjBcs6VvdPxK5it0
+- You can find there original repository here: [Windows-Subsystem-For-Linux-Setup-Guide](https://github.com/michaeltreat/Windows-Subsystem-For-Linux-Setup-Guide)
+- Here is the markdown file I am editing, [PostgresSQL.md](https://github.com/michaeltreat/Windows-Subsystem-For-Linux-Setup-Guide/blob/master/readmes/installs/PostgreSQL.md)
 
- The section that talks about permissions is incorrect. Please look at the issues tab for more information.
- ___
+# Install PostgreSQL using WSL
 
-An in-depth guide for developers on how to get started with the Windows Subsystem for Linux.
+This doc explains how to install PostgreSQL 10 for Windows WSL
 
-![Microsoft and Linux](https://i.imgur.com/GOij8My.png)
+We are installing this through the Ubuntu command line since we want this software to run in the Linux environment. You can check out the PostgreSQL Linux install docs [here](https://www.postgresql.org/download/linux/ubuntu/).
 
-The Windows Subsystem for Linux feature on Windows 10 enables users to have a Linux enviroment fully integrated into their Windows PC.
+## Install
+1. Open a terminal (the Ubuntu app) and then go to the root of the Ubuntu Subsystem by typing `cd ~ `.
+2. Type `sudo nano ../../etc/apt/sources.list`. This will open a file on Ubuntu using the Nano editor.
+3. At the bottom of this file, paste in this line `deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main`
+  - Change the last part of the line above from `xenial-` to whichever version of Ubuntu you are running. For example, `bionic-` for Ubuntu 18.04.X.
+4. When that's done, press `Ctrl + X` together to close the file, and press `y` when prompted to save your changes, and `enter` to finally close.
+5. Next, copy these 2 lines and paste them into your terminal:
+```
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+sudo apt-get update
+```
+This will add postgresql-10 to your repositories so you can install the latest version of PostgreSQL. Press `enter` when the last line pops up.
 
-For ~~experienced~~ all developers: This is not a VM, a Dual-boot, or a console wrapper like Git Bash or Cygwin. It is a native POSIX environment directly mounted to your Windows File System.
+6. After the update is complete, enter in this line `sudo apt-get install postgresql-10` and press `y` when prompted. If the process aborts automatically, you may have to restart your terminal.
 
-### Video Guide: 
+## Postgres User Setup
 
-This guide also has a video walkthrough of it on YouTube where it goes into great detail on each section to help provide you with as much context as possible.
+postgresql-10 runs under the user `postgres`. We need to give this user a password so that postgres can allow this user to connect to the database.
 
-It's recommended you watch the videos while you go through this guide as they will help clairify many of these points with visuals.
+1. To set the password for postgres, type `sudo passwd postgres`.
+2. You will get a prompt to enter in your password. It will not show when you are typing, but it is still registering your key-strokes.
+3. Close and reopen the terminal.
 
-Link to the [WSL Video Playlist](https://www.youtube.com/channel/UCh0yhZV7OrQ-vojQBqSF0RA/).
+## Using psql
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=ixqKqHfCDWM" target="_blank"><img src="http://img.youtube.com/vi/ixqKqHfCDWM/0.jpg" alt="Windows Subsystem for Linux Part One: Introduction into WSL"/></a>
+After your first install, and each time you restart your machine you will have to also restart the postgres service, or else you will get a `Is the server running?` error. 
 
----
+1. To start the service, type `sudo service postgresql start`.
+2. To conntect to postgres, type `sudo -u postgres psql`. 
 
+You should get a prompt asking for your password. If this doesn't work, then you can try the second option listed below.
 
-### What this guide covers
+1. Switch users to postgres by typing `su - postgres`.
+2. Type `psql`.
 
-By the end of this guide, you will know:
+When this is successful you will see the command line change to look like this `postgres=#`
 
-1. What WSL is, and why it's important.
-1. How to install WSL and the free Ubuntu App.
-1. How the two file systems work together, and how you should work with them.
-1. How to update your terminal, and edit WSL files.
-1. Where, why, and how to install different programs and software.
-1. Additional important information.
+## Tips
 
----
+Since typing out `sudo service postgres start` and `sudo -u postgrest psql` all the time can be tedious, I would recommend you set up a couple aliases for this. 
 
-### Checklist:
+1. Open a terminal and type `cd ~`, then type `sudo nano .profile`. This will open your `.profile` which controls what your terminal does and looks like.
+2. Add these two lines next to any other aliases that you have:
+  - `alias pgstart='sudo service postgresql start'`
+  - `alias runpg='sudo -u postgres psql'`
+This will allow you to type `pgstart` to start running the psql service, and `runpg` to quickly log into the psql prompt. This is an example of a Quality of Life enhancement, something that makes your life easier and faster as a developer. 
 
-Use [This Checklist](https://michaeltreat.github.io/Windows-Subsystem-For-Linux-Setup-Guide/) to help keep track of your progress! It makes use of Local Storage to maintain your progress even if you close the Window. Note:  `CTRL + CLICK` to open in a new window!
+You can change `pgstart` and `runpg` to what ever you want, but just be careful you don't overwrite something that postgres might use.
 
-There is also a challenge at the bottom designed to help you learn more about the work-flow as well.
+# My Notes
 
-#### Ready to begin? 
+1. After following the above instructions, change your directory to the `etc` folder from the root directory,
+```
+$ cd /etc
+```
 
-Go to Page 1: [Introduction into WSL](./readmes/01_preface.md) 
+You will want to find the hosts file that is autogenerated by WSL. If you do not see it in your terminal, you may need to use a command to open it. The terminal I use is Extraterm and I would open the `hosts` file with Visual Studio Code.
+
+```
+$ code hosts
+```
+
+2. Now you should see the text in `hosts` and it should look something like this,
+```
+# This file is automatically generated by WSL based on the Windows hosts file:
+# %WINDIR%\System32\drivers\etc\hosts. Modifications to this file will be overwritten.
+127.0.0.1	localhost
+127.0.1.1	your_computer_name.localdomain	computer_name
+
+# The following lines are desirable for IPv6 capable hosts
+::1     ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+```
+Take note of the ip address that is attached to localhost. The reason why you must do this is because when you attempt to create a new server in pgAdmin, inputting the host name/address as localhost could lead to some problems, which happened for me.
+
+3. With that in mind, start the service and log into your superuser,
+
+```
+$ sudo service postgresql start
+$ sudo -u postgres psql
+```
+
+When I tried to log into my postgres superuser in pgAdmin, it threw me errors. So just incase, you may as well change or renter your password again,
+```
+postgres=# \password postgres
+```
+4. By now, you should also had searched up `pgAdmin` and install it. When you already installed it or already have it running, it'll prompt you to enter a master password. After that is done, you can now press `Add New Server` and fill in `Connection`.
+
+    Although it says you can type in your host name, you're better off typing in the ip address that is associated to localhost in `hosts`. Personally, I had trouble connecting when I use localhost as my host name. You may want to allow TCP / UDP connections for the default port 5432 with your firewall.
+
+5. Check to see if your server has been added under Servers on the left side.
