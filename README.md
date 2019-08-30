@@ -94,7 +94,7 @@ $ sudo service postgresql start
 $ sudo -u postgres psql
 ```
 
-When I tried to log into my postgres superuser in pgAdmin, it threw me errors. So just incase, you may as well change or renter your password again,
+When I tried to log into my postgres superuser in pgAdmin, it threw me errors. So just incase, you may as well change or reenter your password again,
 ```
 postgres=# \password postgres
 ```
