@@ -103,3 +103,7 @@ postgres=# \password postgres
     Although it says you can type in your host name, you're better off typing in the ip address that is associated to localhost in `hosts`. Personally, I had trouble connecting when I use localhost as my host name. You may want to allow TCP / UDP connections for the default port 5432 with your firewall.
 
 5. Check to see if your server has been added under Servers on the left side.
+
+Msc.
+If `code` doesn't work for bash or zsh when you're using another terminal other than Ubuntu's, add an alias to .bashrc/.zshrc:
+`alias code="/mnt/c/Program\ Files/Microsoft\ VS\ Code/Code.exe"`
