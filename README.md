@@ -113,3 +113,21 @@ If `code` doesn't work for bash or zsh when you're using another terminal other 
 sudo umount /mnt/d
 sudo mount -t drvfs D: /mnt/d -o metadata
 ```
+
+## If you get password authentication failure, try messing with the pg_hba.conf
+
+This what I did when I entered the error. May be insecure.
+
+```
+# "local" is for Unix domain socket connections only
+local   all             all                                     peer
+# IPv4 local connections:
+host    all             all             127.0.0.1/32            trust
+# IPv6 local connections:
+host    all             all             ::1/128                 md5
+# Allow replication connections from localhost, by a user with the
+# replication privilege.
+local   replication     all                                     peer
+host    replication     all             127.0.0.1/32            md5
+host    replication     all             ::1/128                 md5
+```
