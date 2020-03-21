@@ -107,3 +107,9 @@ postgres=# \password postgres
 Msc.
 If `code` doesn't work for bash or zsh when you're using another terminal other than Ubuntu's, add an alias to .bashrc/.zshrc:
 `alias code="/mnt/c/Program\ Files/Microsoft\ VS\ Code/Code.exe"`
+
+## When it says I don't have permissions,
+```
+sudo umount /mnt/d
+sudo mount -t drvfs D: /mnt/d -o metadata
+```
