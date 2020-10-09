@@ -49,7 +49,7 @@ When this is successful you will see the command line change to look like this `
 
 ## Tips
 
-Since typing out `sudo service postgres start` and `sudo -u postgrest psql` all the time can be tedious, I would recommend you set up a couple aliases for this. 
+Since typing out `sudo service postgres start` and `sudo -u postgres psql` all the time can be tedious, I would recommend you set up a couple aliases for this. 
 
 1. Open a terminal and type `cd ~`, then type `sudo nano .profile`. This will open your `.profile` which controls what your terminal does and looks like.
 2. Add these two lines next to any other aliases that you have:
@@ -58,6 +58,8 @@ Since typing out `sudo service postgres start` and `sudo -u postgrest psql` all 
 This will allow you to type `pgstart` to start running the psql service, and `runpg` to quickly log into the psql prompt. This is an example of a Quality of Life enhancement, something that makes your life easier and faster as a developer. 
 
 You can change `pgstart` and `runpg` to what ever you want, but just be careful you don't overwrite something that postgres might use.
+
+- If you install postgresql 13, it may need you to do `pg_ctlcluster 13 main start` as the postgres user
 
 # My Notes
 
