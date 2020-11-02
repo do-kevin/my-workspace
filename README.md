@@ -1,5 +1,3 @@
-## I would like to thank [Michael Treat](https://github.com/michaeltreat), [Christian Welly](https://github.com/chrisjwelly), and [Izzy Baer](https://github.com/izzybaer) for providing the markdown and instructions that I am modifying
-
 - You can find there original repository here: [Windows-Subsystem-For-Linux-Setup-Guide](https://github.com/michaeltreat/Windows-Subsystem-For-Linux-Setup-Guide)
 - Here is the markdown file I am editing, [PostgresSQL.md](https://github.com/michaeltreat/Windows-Subsystem-For-Linux-Setup-Guide/blob/master/readmes/installs/PostgreSQL.md)
 
@@ -11,7 +9,7 @@ We are installing this through the Ubuntu command line since we want this softwa
 
 ## Install
 1. Open a terminal (the Ubuntu app) and then go to the root of the Ubuntu Subsystem by typing `cd ~ `.
-2. Type `sudo nano ../../etc/apt/sources.list`. This will open a file on Ubuntu using the Nano editor.
+2. Type `sudo nano /etc/apt/sources.list`. This will open a file on Ubuntu using the Nano editor.
 3. At the bottom of this file, paste in this line `deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main`
   - Change the last part of the line above from `xenial-` to whichever version of Ubuntu you are running. For example, `bionic-` for Ubuntu 18.04.X. Or `focal-` for Ubuntu 20.04.
   - You can always check the dists in here: [http://apt.postgresql.org/pub/repos/apt/dists](http://apt.postgresql.org/pub/repos/apt/dists/)
@@ -21,6 +19,9 @@ We are installing this through the Ubuntu command line since we want this softwa
 wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
 sudo apt-get update
 ```
+
+[Reference](https://wiki.postgresql.org/wiki/Apt)
+
 This will add postgresql-10 to your repositories so you can install the latest version of PostgreSQL. Press `enter` when the last line pops up.
 
 6. After the update is complete, enter in this line `sudo apt-get install postgresql-10` and press `y` when prompted. If the process aborts automatically, you may have to restart your terminal. `postgresql-13` is now the latest.
@@ -134,3 +135,7 @@ local   replication     all                                     peer
 host    replication     all             127.0.0.1/32            md5
 host    replication     all             ::1/128                 md5
 ```
+
+## References
+
+[https://github.com/michaeltreat/Windows-Subsystem-For-Linux-Setup-Guide](https://github.com/michaeltreat/Windows-Subsystem-For-Linux-Setup-Guide)
