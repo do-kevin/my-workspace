@@ -139,3 +139,13 @@ host    replication     all             ::1/128                 md5
 ## References
 
 [https://github.com/michaeltreat/Windows-Subsystem-For-Linux-Setup-Guide](https://github.com/michaeltreat/Windows-Subsystem-For-Linux-Setup-Guide)
+
+# WSL stuff
+
+If you have .envrc and commands are not found, do
+
+`sudo apt-get install dos2unix`
+
+Then,
+
+`dos2unix .envrc`
