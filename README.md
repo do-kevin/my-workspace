@@ -149,3 +149,8 @@ If you have .envrc and commands are not found, do
 Then,
 
 `dos2unix .envrc`
+
+
+# Notes
+
+https://x410.dev/cookbook/wsl/using-x410-with-wsl2/
