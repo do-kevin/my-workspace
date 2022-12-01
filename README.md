@@ -146,7 +146,7 @@ error: gpg failed to sign the data
 fatal: failed to write commit object
 ```
 
-After adding GPG, enter `xport GPG_TTY=$(tty)` into terminal and your commit attempts to show a prompt for the password to sign the commit.
+After adding GPG, enter `export GPG_TTY=$(tty)` into terminal and your commit attempts to show a prompt for the password to sign the commit.
 
 ## References
 
