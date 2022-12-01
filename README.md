@@ -136,6 +136,18 @@ host    replication     all             127.0.0.1/32            md5
 host    replication     all             ::1/128                 md5
 ```
 
+
+# GPG Signing in WSL
+Courtesy of https://stackoverflow.com/questions/57619460/trying-to-sign-commits-on-git-using-gpg-on-wsl-but-does-not-work
+
+If you are getting a similar error like this:
+```
+error: gpg failed to sign the data
+fatal: failed to write commit object
+```
+
+After adding GPG, enter `xport GPG_TTY=$(tty)` into terminal and your commit attempts to show a prompt for the password to sign the commit.
+
 ## References
 
 [https://github.com/michaeltreat/Windows-Subsystem-For-Linux-Setup-Guide](https://github.com/michaeltreat/Windows-Subsystem-For-Linux-Setup-Guide)
