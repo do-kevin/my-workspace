@@ -162,6 +162,10 @@ Then,
 
 `dos2unix .envrc`
 
+## HID Access
+
+[https://devblogs.microsoft.com/commandline/connecting-usb-devices-to-wsl](https://devblogs.microsoft.com/commandline/connecting-usb-devices-to-wsl)
+
 
 # Notes
 
