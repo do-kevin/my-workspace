@@ -168,6 +168,7 @@ Then,
 
 ## Electron js
 - Install `fakeroot` and `dpkg` for Electron forge.
+- `apt install mono-runtime`
 
 # Notes
 
