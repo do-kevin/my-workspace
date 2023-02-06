@@ -169,6 +169,8 @@ Then,
 ## Electron js
 - Install `fakeroot` and `dpkg` for Electron forge.
 - `apt install mono-runtime`
+- Restart WSL by `wsl --shutdown` in powershell for rcedit errors.
+- `apt install nuget`
 
 # Notes
 
