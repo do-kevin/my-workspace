@@ -188,6 +188,7 @@ sudo apt-get update && \
 sudo apt-get update && \
   sudo apt-get install -y aspnetcore-runtime-7.0
 ```
+Note: Could not make executable with Electron & Electron Forge. Stopped at missing `System.IO.Compression` error.
 
 ## References:
 https://learn.microsoft.com/en-us/dotnet/core/install/linux-ubuntu?source=recommendations#2204-microsoft-package-feed
