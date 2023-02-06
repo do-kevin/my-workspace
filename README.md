@@ -166,6 +166,8 @@ Then,
 
 [https://devblogs.microsoft.com/commandline/connecting-usb-devices-to-wsl](https://devblogs.microsoft.com/commandline/connecting-usb-devices-to-wsl)
 
+## Electron js
+- Install `fakeroot` and `dpkg` for Electron forge.
 
 # Notes
 
