@@ -200,6 +200,12 @@ sudo apt install pkg-config \
   libwebkit2gtk-4.0-dev
 ```
 
+## React Native
+- Does not work in WSL
+- Can't make APK in Git Bash, so instead use Android Studio
+  - To make APK in Android Studio, make sure to follow React Native docs and open the `android` directory in Android Studio
+
+
 ## References:
 https://learn.microsoft.com/en-us/dotnet/core/install/linux-ubuntu?source=recommendations#2204-microsoft-package-feed
 
