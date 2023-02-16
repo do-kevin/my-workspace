@@ -221,6 +221,12 @@ sudo apt install pkg-config \
   libwebkit2gtk-4.0-dev
 ```
 
+For Windows:
+https://tauri.app/v1/guides/getting-started/prerequisites
+Open the directory in Powershell (admin)
+Set `targets` to include `msi`
+`yarn tauri build` to compile and produce the msi
+
 ## References:
 
 https://learn.microsoft.com/en-us/dotnet/core/install/linux-ubuntu?source=recommendations#2204-microsoft-package-feed
