@@ -1,3 +1,5 @@
+# MY-WORKSPACE
+
 - You can find there original repository here: [Windows-Subsystem-For-Linux-Setup-Guide](https://github.com/michaeltreat/Windows-Subsystem-For-Linux-Setup-Guide)
 - Here is the markdown file I am editing, [PostgresSQL.md](https://github.com/michaeltreat/Windows-Subsystem-For-Linux-Setup-Guide/blob/master/readmes/installs/PostgreSQL.md)
 
@@ -160,10 +162,6 @@ fatal: failed to write commit object
 
 After adding GPG, enter `export GPG_TTY=$(tty)` into terminal and your commit attempts to show a prompt for the password to sign the commit.
 
-## References
-
-[https://github.com/michaeltreat/Windows-Subsystem-For-Linux-Setup-Guide](https://github.com/michaeltreat/Windows-Subsystem-For-Linux-Setup-Guide)
-
 # WSL stuff
 
 If you have .envrc and commands are not found, do
@@ -178,56 +176,9 @@ Then,
 
 [https://devblogs.microsoft.com/commandline/connecting-usb-devices-to-wsl](https://devblogs.microsoft.com/commandline/connecting-usb-devices-to-wsl)
 
-## Electron js
-
-- Install `fakeroot` and `dpkg` for Electron forge.
-- `apt install mono-runtime`
-- Restart WSL by `wsl --shutdown` in powershell for rcedit errors.
-- `apt install nuget`
-  _Ubuntu 20.04 (Microsoft package feed)_
-
-1.
-
-```
-wget https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
-sudo dpkg -i packages-microsoft-prod.deb
-rm packages-microsoft-prod.deb
-```
-
-2.
-
-```
-sudo apt-get update && \
-  sudo apt-get install -y dotnet-sdk-7.0
-```
-
-3.
-
-```
-sudo apt-get update && \
-  sudo apt-get install -y aspnetcore-runtime-7.0
-```
-
-Note: Could not make executable with Electron & Electron Forge. Stopped at missing `System.IO.Compression` error.
-
-## Tauri.js
-
-```
-sudo apt install pkg-config \
-  libdbus-1-dev \
-  libgtk-3-dev \
-  libsoup2.4-dev \
-  libjavascriptcoregtk-4.0-dev \
-  libwebkit2gtk-4.0-dev
-```
-
-For Windows:
-https://tauri.app/v1/guides/getting-started/prerequisites
-Open the directory in Powershell (admin)
-Set `targets` to include `msi`
-`yarn tauri build` to compile and produce the msi
-
 ## References:
+
+[https://github.com/michaeltreat/Windows-Subsystem-For-Linux-Setup-Guide](https://github.com/michaeltreat/Windows-Subsystem-For-Linux-Setup-Guide)
 
 https://learn.microsoft.com/en-us/dotnet/core/install/linux-ubuntu?source=recommendations#2204-microsoft-package-feed
 
